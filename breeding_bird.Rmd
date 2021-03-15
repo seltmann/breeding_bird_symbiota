@@ -1,0 +1,62 @@
+---
+title: "Breeding Bird survey to Symbiota upload"
+author: "Katja Seltmann"
+date: "03 15 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(janitor)
+library(tidyverse)
+library(here)
+library(lubridate)
+
+```
+
+### Objective: Take data from the [Santa Barbara Breeding Bird Survey](https://santabarbaraaudubon.org/santa-barbara-county-breeding-bird-study/) format in Darwin Core and upload to UCSB Natural History Collection Network Portal. Export portal to GBIF/
+
+```{r}
+#read in data
+birds <- read_csv(here("SB_BBS_csv_2020.csv"))
+
+#clean column names and create new date_transform and selected_observer columns. Can add new selected observers to this list to include in the filtering.
+birds <- birds %>%
+  clean_names() %>%
+  #mutate(date_transform = paste(year, month, day, sep = "-")) %>%
+  #mutate(selected_observer = if_else(recorded_by %in% c("Mark Holmgren","Dave Comption","Nick Lethaby", "Tom Turner","Jasen Liu"), TRUE, FALSE))
+
+```
+
+
+```{r}
+#group by species then arrange by date and if a selected observer. Select top 5 records for each species. Because they are already arranged, the ones that are from selected observers or more recent should be at the top.
+gbif_birds_obs_filtered <- gbif_birds_obs %>% 
+  group_by(species) %>%
+  arrange(selected_observer) %>%
+  arrange(date_transform) %>%
+  top_n(5, date_transform)
+
+```
+
+```{r}
+#create unique list of all species and check to see if same number of unique species as output
+gbif_birds_obs_unique <- data_frame(unique(gbif_birds_obs$species))
+nrow(gbif_birds_obs_unique)
+gbif_birds_obs_filtered_unique <- data_frame(unique(gbif_birds_obs_filtered$species))
+nrow(gbif_birds_obs_filtered_unique)
+
+```
+
+```{r}
+#write file for upload to Symbiota
+write_tsv(gbif_birds_obs_filtered,"breeding_bird_DwC.tsv")
+
+```
+
+
+
+
+
+
+
+
