@@ -1,18 +1,19 @@
-## Santa Barbara Breeding Bird Survey GBIF Upload
+## Santa Barbara Breeding Bird Study GBIF Upload
 
 [```Citation```](#Citation) / [```Data Definitions```](#data-definitions) / [```Included Resources```](#included-resources) /  [```Data Issues```](#data-issues)
 
 ### Description
-This GitHub repository contains scripts that take data from the [Santa Barbara Breeding Bird Survey](https://santabarbaraaudubon.org/santa-barbara-county-breeding-bird-study/) and format in Darwin Core for export to Global Biodiversity Information Facility (GBIF) 
+This GitHub repository contains scripts that take data from the [Santa Barbara Breeding Bird Study](https://santabarbaraaudubon.org/santa-barbara-county-breeding-bird-study/) and format in Darwin Core for export to Global Biodiversity Information Facility (GBIF) 
 
 ### Citation
-Katja C. Seltmann (March 2021) Breeding Bird Survey Formatted for Symbiota or GBIF Upload.
+Katja C. Seltmann (March 2021) Breeding Bird Study Formatted for Symbiota or GBIF Upload.
 
 ### Data Definitions
 The definitions of the columns of the spreadsheet are described here. If these correspond with Darwin Core they are mapped to those classes. 
 
 * **occurrenceID** [DWC:occurrenceID](http://rs.tdwg.org/dwc/terms/occurrenceID) : Corresponds to record_number column in the orignial spreadsheet.
-* **basisOfRecord** [DWC:BasisOfRecord](http://rs.tdwg.org/dwc/terms/basisOfRecord) : The specific nature of the data record. For observations in the Breeding Bird Survey use HumanObservation. This field was added.
+* **catalogNumber** [DWC:catalogNumber](http://rs.tdwg.org/dwc/terms/catalogNumber) : Corresponds to record_number column in the orignial spreadsheet.
+* **basisOfRecord** [DWC:BasisOfRecord](http://rs.tdwg.org/dwc/terms/basisOfRecord) : The specific nature of the data record. For observations in the Breeding Bird Study use HumanObservation. This field was added.
 * **country** [DWC:country](http://rs.tdwg.org/dwc/terms/country) : All survey records are from Santa Barbara County, California. This field was added.
 * **stateProvince** [DWC:stateProvince](http://rs.tdwg.org/dwc/terms/stateProvince) : All survey records are from Santa Barbara County, California. This field was added.
 * **county** [DWC:county](http://rs.tdwg.org/dwc/terms/county) : All survey records are from Santa Barbara County, California. This field was added.
@@ -23,10 +24,10 @@ The definitions of the columns of the spreadsheet are described here. If these c
 * **scientificName** [DWC:scientificName](http://rs.tdwg.org/dwc/terms/scientificName) : Corresponds to  elev_meters column in orignial spreadsheet.
 * **recordedBy** [DWC:recordedBy](http://rs.tdwg.org/dwc/terms/recordedBy) : Corresponds to observer column in orignial spreadsheet.
 * **eventDate** [DWC:eventDate](http://rs.tdwg.org/dwc/terms/eventDate) : Corresponds to to date column in orignial spreadsheet. Date format modified to year-month-day.
-* **occurrenceRemarks** [DWC:occurrenceRemarks](http://rs.tdwg.org/dwc/terms/occurrenceRemarks) : Concatination from breeding_evidence, comments, observation, nest_species_structure, nest_hgt_meters, sources in original spreadsheet. 
+* **occurrenceRemarks** [DWC:occurrenceRemarks](http://rs.tdwg.org/dwc/terms/occurrenceRemarks) : Concatination from breeding_evidence, comments, observation, nest_species_structure, nest_hgt_meters, sources, photo_link in original spreadsheet. photo_link is added here because not all photos are URLs. A URL to the BBS is included.
 
 ### Included Resources
 Data records for this code should be retrieved from the ccber-research google drive folder "Santa Barbara County Breeding Bird Study Data." The name of the file may change.
 
 ### Data Issues
-Darwin Core does not support the level behavior detail as found in the Breeding Bird Survey. This information is concatenated and placed in the occurrenceRemarks field, which is functionally a notes field.
+Darwin Core does not support the level behavior detail as found in the Breeding Bird Study. This information is concatenated and placed in the occurrenceRemarks field, which is functionally a notes field.

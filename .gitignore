@@ -1,2 +1,4 @@
 *.csv
 *.tsv
+.DS_Store
+archive/

@@ -1,5 +1,5 @@
 ---
-title: "Breeding Bird survey to Symbiota upload"
+title: "Breeding Bird Study to Symbiota upload"
 author: "Katja Seltmann"
 date: "03 15 2021"
 output: html_document
@@ -13,18 +13,18 @@ library(lubridate)
 
 ```
 
-### Objective: Take data from the [Santa Barbara Breeding Bird Survey](https://santabarbaraaudubon.org/santa-barbara-county-breeding-bird-study/) format in Darwin Core and upload to UCSB Natural History Collection Network Portal. Export portal to GBIF/. record_number is the unique identifier for this record.
+### Objective: Take data from the [Santa Barbara Breeding Bird Study](https://santabarbaraaudubon.org/santa-barbara-county-breeding-bird-study/) format in Darwin Core and upload to UCSB Natural History Collection Network Portal. Export portal to GBIF/. record_number is the unique identifier for this record.
 
 ```{r}
 #read in data and create view of file. Print column names. Several column names are missing.
-birds <- read_csv(here("SB_BBS_OneDrive_SHARED_BACKUP.csv"))
+birds_raw <- read_csv(here("SB_BBS_OneDrive_SHARED_BACKUP.csv"))
 View(birds)
 colnames(birds)
 ```
 
 ```{r}
 #remove columns that do not have names and clean names by removing all white spaces
-birds <- birds %>%
+birds <- birds_raw %>%
   clean_names()
 
 birds <- select(birds, c(1:19))
@@ -35,6 +35,7 @@ colnames(birds)
 #Create new date_transform and selected_observer columns. Can add new selected observers to this list to include in the filtering.
 birds <- birds %>%
   mutate(occurrenceID = record_number) %>%
+  mutate(catalogNumber = record_number) %>%
   mutate(basisOFRecord = "HumanObservation") %>%
   mutate(country = "United States of America") %>%
   mutate(stateProvince = "California") %>%
@@ -45,7 +46,7 @@ birds <- birds %>%
   mutate(maximumElevationInMeters = elev_meters) %>%
   mutate(recordedBy = observer) %>%
   mutate(scientificName = scientific_name) %>%
-  mutate(occurrenceRemarks = paste(breeding_evidence,code,common_name, comments,observation,nest_species_structure,nest_hgt_meters,sources, sep = "; "))
+  mutate(occurrenceRemarks = paste(breeding_evidence,code,common_name, comments,observation,nest_species_structure,nest_hgt_meters,sources,photo_link,"https://ucsb.maps.arcgis.com/apps/webappviewer/index.html?id=d5479baf24dc498a8e8f3894f298ed2d", sep = "; "))
 
 colnames(birds)
 View(birds)
@@ -57,30 +58,35 @@ View(birds)
 #3-Jan-1998 should be 1998-01-03
 birds <- birds %>%
   mutate(eventDate = dmy(birds$date))
-date_check <- select(birds, c(9,32))
+date_check <- select(birds, c(9,33))
 View(date_check)
 ```
 
 ```{r}
-#TODO: link to image
-
+#TODO: link to specific record on BBS
+#Unable to link to specifc records on ArcGIS online
 ```
 ```{r}
-#TODO: link to specific record on BBS
-
+#TODO: remove quotes (locality, occurrenceRemarks) and NAs (occurrenceRemarks)
 ```
 
 ```{r}
 #remove extra columns
-birds = select(birds, c(20:24,7,25:28,30,29,31,32,30))
+birds = select(birds, c(20:25,7,26:29,31,30,33,32))
 ```
 
 ```{r}
 #write file for upload to Symbiota
-write_tsv(birds,"breeding_bird_DwC.tsv")
+write_tsv(birds,"breeding_bird_DwC.txt", na ="")
 ```
 
+```{r}
+#TODO: link to image
+#Images are not all urls so added to notes
+images <- select(birds, c(18))
+write_tsv(images,"images.txt")
 
+```
 
 
 
