@@ -44,6 +44,7 @@ birds <- birds %>%
   mutate(coordinateUncertaintyInMeters = gps_certainty_meters) %>%
   mutate(maximumElevationInMeters = elev_meters) %>%
   mutate(recordedBy = observer) %>%
+  mutate(scientificName = scientific_name) %>%
   mutate(occurrenceRemarks = paste(breeding_evidence,code,common_name, comments,observation,nest_species_structure,nest_hgt_meters,sources, sep = "; "))
 
 colnames(birds)
@@ -52,11 +53,11 @@ View(birds)
 ```
 
 ```{r}
-#TODO: remove time from dates and format dates so Year-Month-Day. Check to see if new format is correct.
+#remove time from dates and format dates so Year-Month-Day. Check to see if new format is correct.
 #3-Jan-1998 should be 1998-01-03
 birds <- birds %>%
   mutate(eventDate = dmy(birds$date))
-date_check <- select(birds, c(9,31))
+date_check <- select(birds, c(9,32))
 View(date_check)
 ```
 
@@ -64,10 +65,14 @@ View(date_check)
 #TODO: link to image
 
 ```
+```{r}
+#TODO: link to specific record on BBS
+
+```
 
 ```{r}
 #remove extra columns
-birds = select(birds, c(20:24,7,25:28,19,29:31))
+birds = select(birds, c(20:24,7,25:28,30,29,31,32,30))
 ```
 
 ```{r}
