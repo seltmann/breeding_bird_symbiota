@@ -1,11 +1,12 @@
 ## Santa Barbara Breeding Bird Survey GBIF Upload
 
-[```Citation```](#Citation) / [```Data Definitions```](#data-definitions) / [```Included Resources```](#included-resources) /  [```Data Issues```](#data-issues) / [```Summary```](#summary)
+[```Citation```](#Citation) / [```Data Definitions```](#data-definitions) / [```Included Resources```](#included-resources) /  [```Data Issues```](#data-issues)
 
 ### Description
 This GitHub repository contains scripts that take data from the [Santa Barbara Breeding Bird Survey](https://santabarbaraaudubon.org/santa-barbara-county-breeding-bird-study/) and format in Darwin Core for export to Global Biodiversity Information Facility (GBIF) 
 
 ### Citation
+Katja C. Seltmann (March 2021) Breeding Bird Survey Formatted for Symbiota or GBIF Upload.
 
 ### Data Definitions
 The definitions of the columns of the spreadsheet are described here. If these correspond with Darwin Core they are mapped to those classes. 
@@ -29,5 +30,3 @@ Data records for this code should be retrieved from the ccber-research google dr
 
 ### Data Issues
 Darwin Core does not support the level behavior detail as found in the Breeding Bird Survey. This information is concatenated and placed in the occurrenceRemarks field, which is functionally a notes field.
-
-### Summary
