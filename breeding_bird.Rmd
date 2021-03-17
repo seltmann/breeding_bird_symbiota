@@ -24,7 +24,8 @@ library(lubridate)
 #coordinateUncertaintyInMeters = gps_certainty_meters
 #maximumElevationInMeters = elev_meters
 #eventDate = 
-#eventTime = 
+#remove x, y (from ArcGIS)
+#Ignore the time (remove it if possible)
 
 ```{r}
 #read in data
@@ -33,18 +34,34 @@ birds <- read_csv(here("SB_BBS_csv_2020.csv"))
 #clean column names and create new date_transform and selected_observer columns. Can add new selected observers to this list to include in the filtering.
 birds <- birds %>%
   clean_names() %>%
-  mutate(recordedBy = observer) %>%
+  mutate(occurrenceID = record_number) %>%
   mutate(basisOFRecord = "HumanObservation") %>%
-  mutate(country = "United States") %>%
+  mutate(country = "United States of America") %>%
   mutate(stateProvince = "California") %>%
   mutate(county = "Santa Barbara") %>%
+  mutate(decimalLongitude = longitude) %>%
+  mutate(decimalLatitude = latitude) %>%
   mutate(coordinateUncertaintyInMeters = gps_certainty_meters) %>%
   mutate(maximumElevationInMeters = elev_meters) %>%
+  mutate(recordedBy = observer) %>%
   mutate(occurrenceRemarks = paste(breeding_evidence,code,common_name, comments,observation,nest_species_structure,nest_hgt_meters,sources, sep = "; "))
 
 colnames(birds)
 View(birds)
 
+```
+
+```{r}
+#remove time from dates and format dates so Year-Month-Day
+birds <- birds %>%
+  mutate(eventDate = str_extract(birds$date,"^\\S+")) %>%
+  mutate(eventDate = mdy(eventDate))
+
+```
+
+```{r}
+#remove extra columns
+birds = select(birds, -c(1:22))
 ```
 
 ```{r}
