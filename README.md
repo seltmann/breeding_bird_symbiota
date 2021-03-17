@@ -10,8 +10,8 @@ This GitHub repository contains scripts that take data from the [Santa Barbara B
 ### Data Definitions
 The definitions of the columns of the spreadsheet are described here. If these correspond with Darwin Core they are mapped to those classes. 
 
-* **basisOfRecord** [DWC:BasisOfRecord](http://rs.tdwg.org/dwc/terms/basisOfRecord) : The specific nature of the data record. For observations in the Breeding Bird Survey use HumanObservation. This field was added.
 * **occurrenceID** [DWC:occurrenceID](http://rs.tdwg.org/dwc/terms/occurrenceID) : Corresponds to record_number column in the orignial spreadsheet.
+* **basisOfRecord** [DWC:BasisOfRecord](http://rs.tdwg.org/dwc/terms/basisOfRecord) : The specific nature of the data record. For observations in the Breeding Bird Survey use HumanObservation. This field was added.
 * **country** [DWC:country](http://rs.tdwg.org/dwc/terms/country) : All survey records are from Santa Barbara County, California. This field was added.
 * **stateProvince** [DWC:stateProvince](http://rs.tdwg.org/dwc/terms/stateProvince) : All survey records are from Santa Barbara County, California. This field was added.
 * **county** [DWC:county](http://rs.tdwg.org/dwc/terms/county) : All survey records are from Santa Barbara County, California. This field was added.
@@ -19,6 +19,7 @@ The definitions of the columns of the spreadsheet are described here. If these c
 * **decimalLatitude** [DWC:decimalLatitude](http://rs.tdwg.org/dwc/terms/decimalLatitude) : Corresponds to latitude column in orignial spreadsheet.
 * **coordinateUncertaintyInMeters** [DWC:coordinateUncertaintyInMeters](http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters) : Corresponds to gps_certainty_meters column in orignial spreadsheet.
 * **maximumElevationInMeters** [DWC:maximumElevationInMeters](http://rs.tdwg.org/dwc/terms/maximumElevationInMeters) : Corresponds to  elev_meters column in orignial spreadsheet.
+* **scientificName** [DWC:scientificName](http://rs.tdwg.org/dwc/terms/scientificName) : Corresponds to  elev_meters column in orignial spreadsheet.
 * **recordedBy** [DWC:recordedBy](http://rs.tdwg.org/dwc/terms/recordedBy) : Corresponds to observer column in orignial spreadsheet.
 * **eventDate** [DWC:eventDate](http://rs.tdwg.org/dwc/terms/eventDate) : Corresponds to to date column in orignial spreadsheet. Date format modified to year-month-day.
 * **occurrenceRemarks** [DWC:occurrenceRemarks](http://rs.tdwg.org/dwc/terms/occurrenceRemarks) : Concatination from breeding_evidence, comments, observation, nest_species_structure, nest_hgt_meters, sources in original spreadsheet. 
