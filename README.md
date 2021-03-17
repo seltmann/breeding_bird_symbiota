@@ -3,9 +3,6 @@
 [```Citation```](#Citation) / [```Data Definitions```](#data-definitions) / [```Included Resources```](#included-resources) /  [```Data Issues```](#data-issues) / [```Summary```](#summary)
 
 ### Description
-
-The tick-interaction-database is a repository for interaction and ecological trait data about ticks. The observations are from the literature and focused on tick hosts, which are important vectors of many arthropod borne pathogens. This is part of the [Terrestrial Parasite Tracker](http://parasitetracker.org/).
-
 This GitHub repository contains scripts that take data from the [Santa Barbara Breeding Bird Survey](https://santabarbaraaudubon.org/santa-barbara-county-breeding-bird-study/) and format in Darwin Core for export to Global Biodiversity Information Facility (GBIF) 
 
 ### Citation
