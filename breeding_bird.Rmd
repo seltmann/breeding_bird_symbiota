@@ -15,25 +15,25 @@ library(lubridate)
 
 ### Objective: Take data from the [Santa Barbara Breeding Bird Survey](https://santabarbaraaudubon.org/santa-barbara-county-breeding-bird-study/) format in Darwin Core and upload to UCSB Natural History Collection Network Portal. Export portal to GBIF/. record_number is the unique identifier for this record.
 
-#identifier = record_number
-#occurrenceRemarks = breeding_evidence, comments, observation, nest_species_structure,nest_hgt_meters,sources
-#recordedBy = observer
-#associatedTaxa = nest_species_structure
-#basisOFRecord = HumanObservation
-#scientificName = scientific_name
-#coordinateUncertaintyInMeters = gps_certainty_meters
-#maximumElevationInMeters = elev_meters
-#eventDate = 
-#remove x, y (from ArcGIS)
-#Ignore the time (remove it if possible)
+```{r}
+#read in data and create view of file. Print column names. Several column names are missing.
+birds <- read_csv(here("SB_BBS_OneDrive_SHARED_BACKUP.csv"))
+View(birds)
+colnames(birds)
+```
 
 ```{r}
-#read in data
-birds <- read_csv(here("SB_BBS_csv_2020.csv"))
-
-#clean column names and create new date_transform and selected_observer columns. Can add new selected observers to this list to include in the filtering.
+#remove columns that do not have names and clean names by removing all white spaces
 birds <- birds %>%
-  clean_names() %>%
+  clean_names()
+
+birds <- select(birds, c(1:19))
+colnames(birds)
+```
+
+```{r}
+#Create new date_transform and selected_observer columns. Can add new selected observers to this list to include in the filtering.
+birds <- birds %>%
   mutate(occurrenceID = record_number) %>%
   mutate(basisOFRecord = "HumanObservation") %>%
   mutate(country = "United States of America") %>%
@@ -52,22 +52,27 @@ View(birds)
 ```
 
 ```{r}
-#remove time from dates and format dates so Year-Month-Day
+#TODO: remove time from dates and format dates so Year-Month-Day. Check to see if new format is correct.
+#3-Jan-1998 should be 1998-01-03
 birds <- birds %>%
-  mutate(eventDate = str_extract(birds$date,"^\\S+")) %>%
-  mutate(eventDate = mdy(eventDate))
+  mutate(eventDate = dmy(birds$date))
+date_check <- select(birds, c(9,31))
+View(date_check)
+```
+
+```{r}
+#TODO: link to image
 
 ```
 
 ```{r}
 #remove extra columns
-birds = select(birds, -c(1:22))
+birds = select(birds, c(20:24,7,25:28,19,29:31))
 ```
 
 ```{r}
 #write file for upload to Symbiota
 write_tsv(birds,"breeding_bird_DwC.tsv")
-
 ```
 
 
